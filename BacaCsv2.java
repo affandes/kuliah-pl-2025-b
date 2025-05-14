@@ -4,12 +4,12 @@ import java.io.FileReader;
 public class BacaCsv2 {
     
     public static void main(String[] args) {
-
-        String namaFile = "netflix_titles.csv";
+  
+        String namaFile = "data/netflix_titles.csv";
         NetflixShow[] listShows = new NetflixShow[8809];
 
         try(BufferedReader br = new BufferedReader(new FileReader(namaFile))) {
-            
+          
             String line = "";
             br.readLine(); // Skip first line
             int idx = 0;
