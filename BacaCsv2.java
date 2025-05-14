@@ -15,39 +15,13 @@ public class BacaCsv2 {
             int idx = 0;
 
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                
 
                 NetflixShow shw = new NetflixShow();
 
-                if (data[0] == null) {
-                    shw.showId = "-";
-                } else {
-                    shw.showId = data[0];
-                }
-                
-                if (data[1] == null) {
-                    shw.type = "-";
-                } else {
-                    shw.type = data[1];
-                }
+                shw.insert(line);
 
-                if (data[2] == null) {
-                    shw.title = "-";
-                } else {
-                    shw.title = data[2];
-                }
-
-                //shw.type = data[1];
-                //shw.title = data[2];
-                shw.director = data[3];
-                shw.cast = data[4];
-                shw.country = data[5];
-                shw.dateAdded = data[6];
-                shw.releaseYear = Integer.parseInt(data[7]);
-                shw.rating = data[8];
-                shw.duration = data[9];
-                shw.listedIn = data[10];
-                shw.description = data[11];
+    
 
                 listShows[idx] = shw;
 
