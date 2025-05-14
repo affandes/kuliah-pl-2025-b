@@ -39,6 +39,7 @@ public class BacaCsv2 {
         int countin2020 = 0;
         
         // O(n)
+        // Algoritma Pencarian (Searching)
         for (int i = 0; i < listShows.length; i++) {
             // O(1)
             if (listShows[i] == null) {
