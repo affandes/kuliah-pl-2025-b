@@ -11,9 +11,11 @@ public class Main {
     public static void main(String[] args) {
 
         String[] daftarNamaFile = {getFile()};
-        NetflixShow[] listShows = loadShows(daftarNamaFile);
 
-        NetflixShow[] filterNetflixShow = cariNetflixShows(listShows);
+        NetflixShowFactory nff = new NetflixShowFactory(daftarNamaFile);
+        nff.loadShows();
+        NetflixShow[] filterNetflixShow = nff.cariNetflixShows();
+        
         // O(1)
         System.out.println("Movies & TV Show in 2020 = " + filterNetflixShow.length);
         saveToFile("./data/filtered.csv", filterNetflixShow);
@@ -24,58 +26,6 @@ public class Main {
         Scanner scn = new Scanner(System.in);
         System.out.print("Masukkan file: ");
         return scn.nextLine();
-    }
-
-    public static NetflixShow[] loadShows(String daftarNamaFile[]) {
-        NetflixShow[] listShows = new NetflixShow[8809];
-        // O(n)
-        for (String namaFile : daftarNamaFile) {
-            try(BufferedReader br = new BufferedReader(new FileReader(namaFile))) {
-                
-                // O(1)
-                String line = "";
-                br.readLine(); // Skip first line
-                int idx = 0;
-
-                // O(n)
-                while ((line = br.readLine()) != null) {
-                    NetflixShow shw = new NetflixShow();
-                    shw.insert(line);
-                    listShows[idx] = shw;
-                    shw.print();
-                    idx++;
-                }
-
-                // O(1)
-                br.close();
-
-            } catch (Exception e) {
-                // O(1)
-                System.out.println("Error: " + e.getMessage());
-            }
-            
-        }
-        return listShows;
-    }
-
-    public static NetflixShow[] cariNetflixShows(NetflixShow[] listShows) {
-        
-        List<NetflixShow> filteredShows = new ArrayList<>();
-
-        // Algoritma Pencarian (Searching)
-        for (int i = 0; i < listShows.length; i++) {
-            
-            if (listShows[i] == null) {
-                continue;
-            }
-
-            // O(1)
-            if (listShows[i].releaseYear == 2020) {
-                filteredShows.add(listShows[i]);
-            }
-        }
-        return filteredShows.stream().toArray(NetflixShow[] ::new);
-    
     }
 
     public static void saveToFile(String fileName, NetflixShow[] data) {
