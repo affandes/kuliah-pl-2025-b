@@ -10,15 +10,16 @@ public class Main {
     
     public static void main(String[] args) {
 
-        String[] daftarNamaFile = {getFile()};
-
-        NetflixShowFactory nff = new NetflixShowFactory(daftarNamaFile);
-        nff.loadShows();
-        NetflixShow[] filterNetflixShow = nff.cariNetflixShows();
+       // String[] daftarNamaFile = {getFile()};
+       
+        NetflixShowFactory nff = new NetflixShowFactory();
+        
+        nff.loadShows("data/netflix_titles.csv");
+        NetflixShow[] filterNetflixShow = nff.sortWithMergeSort();
         
         // O(1)
         System.out.println("Movies & TV Show in 2020 = " + filterNetflixShow.length);
-        saveToFile("./data/filtered.csv", filterNetflixShow);
+        saveToFile(filterNetflixShow);
 
     }
 
@@ -26,6 +27,10 @@ public class Main {
         Scanner scn = new Scanner(System.in);
         System.out.print("Masukkan file: ");
         return scn.nextLine();
+    }
+
+    public static void saveToFile(NetflixShow[] data) {
+        saveToFile("output.csv", data);
     }
 
     public static void saveToFile(String fileName, NetflixShow[] data) {
